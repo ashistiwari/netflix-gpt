@@ -64,6 +64,25 @@ The content paths include all JSX and JS files under `src/`.
 -Created Netflix-gpt app
 -configured tailwind
 
+-Use Formik libraries for Forms with many fields
+
+## Features
+
+-Login/Signup
+-Signin/Signup form
+-Redirect to Browser Page
+-Browse(After Authentication)
+-Header
+-Main movie
+-Trailer in Background
+-Title $ Description
+-MovieSuggestion
+-MoviesList\*N
+
+-Netflix GPT
+-Search Bar
+-Movie Suggestion
+
 ## License
 
 This repository has no license defined. Feel free to update it as needed.
