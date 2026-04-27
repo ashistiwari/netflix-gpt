@@ -63,6 +63,8 @@ The content paths include all JSX and JS files under `src/`.
 
 -Created Netflix-gpt app
 -configured tailwind
+-Form Vlidation
+-useRef hook
 
 -Use Formik libraries for Forms with many fields
 
