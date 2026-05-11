@@ -18,28 +18,43 @@ const Body = () => {
       element: <Browse/>,
     },
   ]);
-
 const fetchUser = useCallback(async (accessToken) => {
+
   try {
+
     const res = await fetch("http://localhost:8080/auth/me", {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
 
+    console.log("STATUS:", res.status);
+
+    const data = await res.text();
+
+    console.log("RAW RESPONSE:", data);
+
     if (res.ok) {
-      const userData = await res.json();
+
+      const userData = JSON.parse(data);
+
+      console.log("USER DATA:", userData);
 
       dispatch(addUser(userData));
+
     } else {
+
       dispatch(removeUser());
+
       localStorage.removeItem("accessToken");
     }
+
   } catch (err) {
+
     console.error(err);
   }
-}, [dispatch]);
 
+}, [dispatch]);
 useEffect(() => {
   const accessToken = localStorage.getItem("accessToken");
 

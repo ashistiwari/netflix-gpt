@@ -3,8 +3,11 @@ import Header from "./Header";
 import { checkValidateData } from "../utils/Validate";
 import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isSignIn, setIsSignIn] = useState(true);
   const toggleSignInForm = () => {
@@ -18,6 +21,7 @@ const Login = () => {
 
  const handleSubmitButton = async (e) => {
   e.preventDefault();
+  console.log("Button clicked");
 
   const message = checkValidateData(
     email.current.value,
@@ -29,6 +33,7 @@ const Login = () => {
   if (message) return;
 
   try {
+    console.log("Inside try block");
     const url = isSignIn ? "/auth/login" : "/auth/signup";
 
     const payload = isSignIn
@@ -44,24 +49,28 @@ const Login = () => {
         };
 
     const res = await api.post(url, payload);
+    console.log("API response:", res.data);
 
     if (isSignIn) {
-      localStorage.setItem("accessToken", res.data.token);
-      console.log(res.data.token);
+      localStorage.setItem("token", res.data.token);
+      dispatch(addUser(res.data.user));
+
+      console.log("TOKEN:", res.data.token);
 
       navigate("/browse");
     } else {
       navigate("/");
     }
-  } catch(err){
 
-  const errorMsg =
+  } catch (err) {
+
+    const errorMsg =
       err.response?.data || "Something went wrong";
 
-  setErrorMessage(errorMsg);
+    setErrorMessage(errorMsg);
 
-  console.error(errorMsg);
-}
+    console.error(errorMsg);
+  }
 };
 
   return (
