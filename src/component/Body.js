@@ -5,17 +5,27 @@ import Browse from "./Browse";
 import { addUser } from "../utils/userSlice";
 import {useDispatch} from "react-redux";
 import { removeUser } from "../utils/userSlice";
+import ProtectedRoute from "./ProtectedRoute";
+import PublicRoute from "./PublicRoute";
 
 const Body = () => {
   const dispatch=useDispatch();
   const appRouter = createBrowserRouter([
     {
       path: "/",
-      element: <Login />,
+      element: (
+        <PublicRoute>
+          <Login />
+        </PublicRoute>
+  ),
     },
     {
       path: "/browse",
-      element: <Browse/>,
+    element: (
+      <ProtectedRoute>
+        <Browse />
+      </ProtectedRoute>
+    ),
     },
   ]);
 const fetchUser = useCallback(async (accessToken) => {
